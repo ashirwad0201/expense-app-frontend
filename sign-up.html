@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <title>Document</title>
+    <style>
+        form{
+            border: groove;
+            border-radius: 20px;
+            border-width: 10px;
+        }
+        h1{
+            text-align:center ;
+            color: #ffa500;
+        }
+        label{
+            margin-left: 1%;
+        }      
+        
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="row " style="margin-top: 10%;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form id= "form" action="#"  >
+                    <h1 >Sign up</h1><br>
+                    <input class="rounded-pill" required type="text" name="username" id="id1" placeholder="Username" style="width: 95%; margin-left: 1%; margin-bottom: 1%; margin-top: 1%"/><br>
+                    <input class="rounded-pill" required type="email"  name="email" id="id2" placeholder="Email" style="width: 95%;  margin-left: 1%; margin-bottom: 1%; margin-top: 1%"/><br>
+                    <input class="rounded-pill" required type="password" name="password" id="id3" placeholder="Password" style="width: 95%;  margin-left: 1%; margin-bottom: 1%; margin-top: 1%"/><br>
+                    <input class="btn btn-primary font-weight-bold" onclick="onSignUp()" type="submit" value="Sign up" style=" margin-left:15%; margin-bottom: 1%; margin-top: 1%; background-color: #ffa500;width: 67%; border-radius: 20px;">
+                    <br>
+                    <br>
+                    <p style="text-align: center;">Already have an account. <a href="/sign-up.html"> SIGN IN</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="expense.js"></script>
+</body>
+</html>
