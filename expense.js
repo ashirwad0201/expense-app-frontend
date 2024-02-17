@@ -33,24 +33,20 @@ function onSignUp(){
 function onLogin(){
     var email_=document.getElementById('idx1').value;
     var password_=document.getElementById('idx2').value;
+    let myObj={
+        email: email_,
+        password: password_
+    }
     if(email_!='' && password_!=''){
-        axios.get(`http://localhost:5000/get-user/${email_}`)
-        .then(result=>{
-            console.log(result)
-            if(result.data==""){
-                alert("User doesn't exist");
-            }
-            else{
-                var pass=result.data.password;
-                if(pass===password_){
-                    alert("Logged in successfully");
-                }
-                else{
-                    alert("Password incorrect!");
-                }
-            }
+        axios.post('http://localhost:5000/login-user',myObj)
+        .then((res)=>{
+            console.log(res)
+            alert(res.data)
+            // alert("Account created successfully")
         })
-        .catch(err=>console.log(err))
+        .catch(err=>{
+            alert(err.response.data)
+        }); 
     }
 
 }
