@@ -9,11 +9,12 @@ function onLogin(){
         axios.post('http://localhost:5000/login-user',myObj)
         .then((res)=>{
             console.log(res)
-            alert(res.data)
+            alert(res.data.message)
+            localStorage.setItem('token',res.data.token)
             window.location.href="../ExpenseTracker/expense.html"
         })
         .catch(err=>{
-            alert(err.response.data)
+            alert(err.response.data.message)
         }); 
     }
 }
