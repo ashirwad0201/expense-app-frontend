@@ -24,8 +24,18 @@
                 <input onclick="tracker()" type="button" value="Add Expense" id="idk4" class="btn btn-dark">
             </form>
             <button id="idk5">Buy Premium</button>
+            <div id="idk6" style="display: none;">
+                <p>You are a premium user now.<button class="btn" id="idk7">Show leaderboard</button></p>
+                
+            </div>
+            
             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            <h2>Expenses</h2>
             <ul id="list-items" class="list-group"></ul>
+            <div id="idk8" style="display: none;">
+                <h2>Leader Board</h2>
+                <ul id="list-items2" class="list-group"></ul>
+            </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

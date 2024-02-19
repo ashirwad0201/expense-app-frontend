@@ -1,4 +1,5 @@
 var list=document.getElementById('list-items');
+var leaderboardList=document.getElementById('list-items2');
 list.addEventListener('click' ,removeElement);
 const token=localStorage.getItem('token');
 var isPremium=false;
@@ -25,6 +26,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     .then((res)=>{
         if(res.data.isPremium===true){
             document.getElementById('idk5').style.display='none';
+            document.getElementById('idk6').style.display='block';
         }
     })
     .catch((err)=>console.log(err));    
@@ -93,6 +95,7 @@ document.getElementById('idk5').onclick = async function(e){
             },{headers:{"authorization": token}})
             alert("You are a premium user now")
             document.getElementById('idk5').style.display='none';
+            document.getElementById('idk6').style.display='block';
         }
     };
     const rzp1=new Razorpay(options);
@@ -105,7 +108,19 @@ document.getElementById('idk5').onclick = async function(e){
     });
 }
 
-
+document.getElementById('idk7').onclick = async function(e){
+    console.log("I am in")
+    const leaderboard=await axios.get('http://localhost:5000/premium/get-leaderboard')
+    leaderboard.data.forEach(user => {
+        var newList=document.createElement('li');
+        newList.className="list-group-item"
+        var text='Name- '+user.name+' Total Expense- '+user.amount;
+        newList.appendChild(document.createTextNode(text));
+        leaderboardList.appendChild(newList);       
+    });
+    document.getElementById('idk8').style.display='block';
+    console.log(leaderboard)
+}
 
 
 
