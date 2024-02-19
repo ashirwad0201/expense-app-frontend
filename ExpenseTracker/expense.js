@@ -1,6 +1,7 @@
 var list=document.getElementById('list-items');
 list.addEventListener('click' ,removeElement);
 const token=localStorage.getItem('token');
+var isPremium=false;
 
 function getExpense(){
     console.log("hi i am token")
@@ -19,7 +20,16 @@ function getExpense(){
     )
 }
 
-window.addEventListener('DOMContentLoaded',getExpense)
+window.addEventListener('DOMContentLoaded',()=>{
+    axios.post('http://localhost:5000/ispremium',{},{headers:{"authorization": token}})
+    .then((res)=>{
+        if(res.data.isPremium===true){
+            document.getElementById('idk5').style.display='none';
+        }
+    })
+    .catch((err)=>console.log(err));    
+    getExpense();
+    })
 
 function tracker(){
     var expAmount_=document.getElementById('idk1').value;
@@ -50,10 +60,6 @@ function showData(myObj){
     delButton.appendChild(document.createTextNode('Delete'));
     newList.appendChild(delButton);
     newList.setAttribute('item-id',myObj.id);
-    // var EditButton=document.createElement('button');
-    // EditButton.className='btn btn-primary edit btn-sm';
-    // EditButton.appendChild(document.createTextNode('Edit'));
-    // newList.appendChild(EditButton);
 
     list.appendChild(newList);
 }
@@ -70,17 +76,38 @@ function removeElement(e){
             list.removeChild(li);
         }
     }
-    // else if(e.target.classList.contains('edit')){
-    //     var li=e.target.parentElement;
-    //     const arr=li.textContent.split(" - " );
-    //     var description=arr[1];
-    //     localStorage.removeItem(description);
-    //     document.getElementById('idk1').value=arr[0];
-    //     document.getElementById('idk2').value=arr[1];
-    //     document.getElementById('idk3').value=arr[2];
-    //     list.removeChild(li);
-    // }
 }
+
+document.getElementById('idk5').onclick = async function(e){
+    const token=localStorage.getItem('token');
+    const response= await axios.get('http://localhost:5000/premiummembership',{headers:{"authorization": token}});
+    console.log(response);
+    var options=
+    {
+        "key": response.data.key_id,
+        "order_id": response.data.order.id,
+        "handler": async function(response){
+            await axios.post('http://localhost:5000/updatetransactionstatus',{
+                order_id: options.order_id,
+                payment_id: response.razorpay_payment_id
+            },{headers:{"authorization": token}})
+            alert("You are a premium user now")
+            document.getElementById('idk5').style.display='none';
+        }
+    };
+    const rzp1=new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+
+    rzp1.on('payment failed',function(response){
+        console.log(repsonse)
+        alert('Something went wrong')
+    });
+}
+
+
+
+
 
 // Function to open the popup
 function openPopup() {
