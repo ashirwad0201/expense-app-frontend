@@ -114,7 +114,7 @@ document.getElementById('idk7').onclick = async function(e){
     leaderboard.data.forEach(user => {
         var newList=document.createElement('li');
         newList.className="list-group-item"
-        var text='Name- '+user.username+' Total Expense- '+(user.amount || 0);
+        var text='Name- '+user.username+' Total Expense- '+(user.totalexpense || 0);
         newList.appendChild(document.createTextNode(text));
         leaderboardList.appendChild(newList);       
     });
