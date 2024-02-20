@@ -18,3 +18,7 @@ function onLogin(){
         }); 
     }
 }
+
+document.getElementById('idx3').onclick = function(e){
+    window.location.href="../Reset/reset.html"
+}
