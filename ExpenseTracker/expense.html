@@ -25,6 +25,7 @@
                     <option value="transport">transport</option>
                     <option value="health">health</option>
                     <option value="salary">salary</option>
+                </select>
                 <input onclick="tracker()" type="button" value="Add Expense" id="idk4" class="btn btn-dark">
             </form>
             <button id="idk5">Buy Premium</button>
@@ -40,6 +41,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h2>Expenses</h2>
+                        <select name="pages" id="idk11" onchange="itemsPerPage()">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                        </select>
                         <ul id="list-items"></ul>
                         <div id="paginate-expense"></div>
                     </div>

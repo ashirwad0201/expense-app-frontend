@@ -8,11 +8,18 @@ incomelist.addEventListener('click' ,removeElement);
 const token=localStorage.getItem('token');
 var isPremium=false;
 
+function itemsPerPage(){
+    console.log("hi")
+    const noOfItems=document.getElementById('idk11').value;
+    console.log(noOfItems)
+    localStorage.setItem('itemsPerPage',noOfItems)
+    getExpense(1)
+}
 function getExpense(page){
     console.log("hi i am token")
     console.log(token)
     list.innerHTML = "";
-    axios.get(`http://localhost:5000/get-expense/?page=${page}`,{headers:{"authorization": token}})
+    axios.get(`http://localhost:5000/get-expense/?page=${page}&itemsPerPage=${localStorage.getItem('itemsPerPage')}`,{headers:{"authorization": token}})
     .then(
         (response)=>{
             for(var i=0;i<response.data.expenses.length;i++){
@@ -65,7 +72,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             document.getElementById('idk6').style.display='block';
         }
     })
-    .catch((err)=>console.log(err));    
+    .catch((err)=>console.log(err));
+    document.getElementById('idk11').value=localStorage.getItem('itemsPerPage')||2;
     getExpense(1);
     getSalary();
     getDownload();
