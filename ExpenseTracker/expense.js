@@ -1,16 +1,35 @@
 var list=document.getElementById('list-items');
 var incomelist=document.getElementById('list-income-items');
+var downloadlist=document.getElementById('list-downloads');
 var leaderboardList=document.getElementById('list-items2');
+var pagination=document.getElementById('paginate-expense');
 list.addEventListener('click' ,removeElement);
 incomelist.addEventListener('click' ,removeElement);
 const token=localStorage.getItem('token');
 var isPremium=false;
 
-function getExpense(){
+function getExpense(page){
     console.log("hi i am token")
     console.log(token)
     list.innerHTML = "";
-    axios.get('http://localhost:5000/get-expense',{headers:{"authorization": token}})
+    axios.get(`http://localhost:5000/get-expense/?page=${page}`,{headers:{"authorization": token}})
+    .then(
+        (response)=>{
+            for(var i=0;i<response.data.expenses.length;i++){
+                showData(response.data.expenses[i]);
+            }
+            console.log(response.data)
+            showPagination(response.data)
+        }
+    )
+    .catch(
+        (err)=>console.log(err)
+    )
+}
+function getSalary(){
+    const page=1;
+    incomelist.innerHTML = "";
+    axios.get(`http://localhost:5000/get-income/?page=${page}`,{headers:{"authorization": token}})
     .then(
         (response)=>{
             for(var i=0;i<response.data.length;i++){
@@ -22,13 +41,14 @@ function getExpense(){
         (err)=>console.log(err)
     )
 }
-function getSalary(){
-    incomelist.innerHTML = "";
-    axios.get('http://localhost:5000/get-income',{headers:{"authorization": token}})
+function getDownload(){
+    console.log("hi i am token")
+    console.log(token)
+    axios.get('http://localhost:5000/premium/getdownload',{headers:{"authorization": token}})
     .then(
         (response)=>{
             for(var i=0;i<response.data.length;i++){
-                showData(response.data[i]);
+                showDownload(response.data[i]);
             }
         }
     )
@@ -46,8 +66,9 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     })
     .catch((err)=>console.log(err));    
-    getExpense();
+    getExpense(1);
     getSalary();
+    getDownload();
     })
 
 function tracker(){
@@ -77,7 +98,35 @@ function tracker(){
         .catch((err)=>console.log(err));
     }
 } 
-
+function showPagination({
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage,
+}){
+    pagination.innerHTML='';
+    if(hasPreviousPage){
+        const btn2=document.createElement('button')
+        btn2.innerHTML=previousPage;
+        btn2.addEventListener('click',()=>getExpense(previousPage))
+        pagination.appendChild(btn2)
+    }
+    const btn1=document.createElement('button')
+    btn1.innerHTML=`<h3>${currentPage}</h3>`
+    btn1.addEventListener('click',()=>getExpense(currentPage))
+    pagination.appendChild(btn1)
+    console.log(hasNextPage);
+    console.log(hasPreviousPage)
+    if(hasNextPage){
+        console.log("i am in")
+        const btn3=document.createElement('button')
+        btn3.innerHTML=nextPage;
+        btn3.addEventListener('click',()=>getExpense(nextPage))
+        pagination.appendChild(btn3)
+    }
+}
 function showData(myObj){
     console.log(myObj)
     var newList=document.createElement('li');
@@ -98,6 +147,20 @@ function showData(myObj){
         list.appendChild(newList);
     }
 }
+
+function showDownload(myObj){
+    console.log(myObj)
+    var newList=document.createElement('li');
+    newList.className="list-group-item"
+    var a=document.createElement("a");
+    a.href=myObj.url;
+    a.appendChild(document.createTextNode(myObj.url));
+    var text=myObj.name+" : "
+    newList.appendChild(document.createTextNode(text));
+    newList.appendChild(a)
+    downloadlist.appendChild(newList);
+}
+
 
 
 function removeElement(e){
@@ -162,6 +225,14 @@ document.getElementById('idk7').onclick = async function(e){
         newList.appendChild(document.createTextNode(text));
         leaderboardList.appendChild(newList);       
     });
-    document.getElementById('idk8').style.display='block';
+    document.getElementById('idk10').style.display='block';
     console.log(leaderboard)
+}
+
+async function report(){
+    const input=document.getElementById('idk8').value;
+    const year=input.substring(0,4);
+    const month=input.substring(5,7);
+    const url=`../Premium/premium.html?year=${year}&month=${month}`;
+    window.location.href=url;
 }

@@ -30,7 +30,9 @@
             <button id="idk5">Buy Premium</button>
             <div id="idk6" style="display: none;">
                 <p>You are a premium user now.<button class="btn" id="idk7">Show leaderboard</button></p>
-                
+                <input id="idk8" type="month">
+                <button class="btn" id="idk9" onclick="report()">Show Report</button>
+                <ul id="list-downloads"></ul>
             </div>
             
             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -39,14 +41,16 @@
                     <div class="col-md-6">
                         <h2>Expenses</h2>
                         <ul id="list-items"></ul>
+                        <div id="paginate-expense"></div>
                     </div>
                     <div class="col-md-6">
                         <h2>Incomes</h2>
                         <ul id="list-income-items"></ul>
+
                     </div>
                 </div>
             </div>
-            <div id="idk8" style="display: none;">
+            <div id="idk10" style="display: none;">
                 <h2>Leader Board</h2>
                 <ul id="list-items2" class="list-group"></ul>
             </div>
