@@ -9,11 +9,11 @@ function onSignUp(){
         password: password_
     }
     if(username_!='' && email_!='' && password_!=''){
-        axios.get(`http://localhost:5000/get-user/${email_}`)
+        axios.get(`${API_ENDPOINT}get-user/${email_}`)
         .then(result=>{
             if(result.data==""){
                 console.log("hi! i am in")
-                axios.post('http://localhost:5000/insert-user',myObj)
+                axios.post(`${API_ENDPOINT}insert-user`,myObj)
                 .then((res)=>{
                     console.log("Account created successfully")
                     console.log(res)

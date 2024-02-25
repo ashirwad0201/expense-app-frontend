@@ -1,3 +1,4 @@
+
 function onLogin(){
     var email_=document.getElementById('idx1').value;
     var password_=document.getElementById('idx2').value;
@@ -6,7 +7,7 @@ function onLogin(){
         password: password_
     }
     if(email_!='' && password_!=''){
-        axios.post('http://localhost:5000/login-user',myObj)
+        axios.post(`${API_ENDPOINT}login-user`,myObj)
         .then((res)=>{
             console.log(res)
             alert(res.data.message)

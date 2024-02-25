@@ -4,7 +4,7 @@ function onReset(){
         email: email_
     }
     if(email_!=''){
-        axios.post('http://localhost:5000/password/forgotpassword',myObj)
+        axios.post(`${API_ENDPOINT}password/forgotpassword`,myObj)
         .then((res)=>{
             console.log(res)
             alert("Reset Link send")
@@ -24,7 +24,7 @@ async function onSet(){
         let uuid=currentUrl.split('=')[1];
         console.log('User ID:', uuid);
         var password_=document.getElementById('idp1').value;
-        await axios.post('http://localhost:5000/password/newpassword',{uuid: uuid,password: password_});
+        await axios.post(`${API_ENDPOINT}password/newpassword`,{uuid: uuid,password: password_});
         window.location.href="../login/login.html"
         
     }catch(err){
@@ -35,7 +35,7 @@ async function onSet(){
     //     password: password_
     // }
     // if(email_!='' && password_!=''){
-    //     axios.post('http://localhost:5000/login-user',myObj)
+    //     axios.post('${API_ENDPOINT}login-user',myObj)
     //     .then((res)=>{
     //         console.log(res)
     //         alert(res.data.message)
