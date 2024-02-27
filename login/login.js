@@ -1,5 +1,6 @@
 
-function onLogin(){
+function onLogin(e){
+    e.preventDefault();
     var email_=document.getElementById('idx1').value;
     var password_=document.getElementById('idx2').value;
     let myObj={

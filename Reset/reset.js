@@ -17,8 +17,9 @@ function onReset(){
     }
 }
 
-async function onSet(){
+async function onSet(e){
     try{
+        e.preventDefault();
         const currentUrl = window.location.href;
         let paramString = currentUrl.split('?')[1];
         let uuid=currentUrl.split('=')[1];
